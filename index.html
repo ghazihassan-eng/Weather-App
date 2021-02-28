@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ballet&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="input">
+      <input type="text" class="inputValue" placeholder="Enter City Name">
+      <input type="button" value="Search" class="btn" onclick="myfunction()"/>
+
+    </div>
+
+<center>
+  <div class="display">
+    <h2 class="name"></h2>
+    <p class="desc"></p>
+    <p class="temp"></p>
+  </div>
+</center>
+<br>
+<br>
+<center class="footer">
+<p>Design and developed by SM GHAZI, ghazihassan480@gmail.com</p>
+</center>
+  </body>
+
+<script>
+  var butto  = document.querySelector('.btn');
+  var inputValue  = document.querySelector('.inputValue');
+  var name  = document.querySelector('.name');
+  var desc  = document.querySelector('.desc');
+  var temp  = document.querySelector('.temp');
+
+
+
+  function myfunction(){
+
+    fetch('https://api.openweathermap.org/data/2.5/weather?q='+inputValue.value+'&appid=db51ba26e995753ca0838bd454e78915')
+    .then(response => response.json())
+    .then(data => {
+      var nameValue = data['name'];
+      var tempValue = data['main']['temp'];
+      var descValue = data['weather'][0]['description'];
+
+      name.innerHTML = nameValue;
+      temp.innerHTML = tempValue;
+      desc.innerHTML = descValue;
+    })
+    .catch(err => alert('wrong City!'))
+  }
+
+</script>
+</html>
